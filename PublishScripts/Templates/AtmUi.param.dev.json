@@ -1,0 +1,32 @@
+{
+  "siteName": {
+    "value": "AtmUi"
+  },
+  "hostingPlanName": {
+    "value": "atmui"
+  },
+  "siteLocation": {
+    "value": "West US"
+  },
+  "sku": {
+    "value": "Free"
+  },
+  "workerSize": {
+    "value": "0"
+  },
+  "serverName": {
+    "value": "atmui"
+  },
+  "serverLocation": {
+    "value": "West US"
+  },
+  "administratorLogin": {
+    "value": "atmuiadmin"
+  },
+  "administratorLoginPassword": {
+    "value": "Meenu1293"
+  },
+  "databaseName": {
+    "value": "AtmUi_db"
+  }
+}

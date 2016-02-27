@@ -80,33 +80,57 @@ namespace ATM
 
                 IEnumerable<User> e;
                 e = Bank.GetAllUsers();*/
-
-            Console.WriteLine("Menu");
-            Console.WriteLine("1.Create User");
-            Console.WriteLine("2.Open Account");
-            Console.WriteLine("3.Exit");
-            Console.Write("Enter Choice: ");
-            var choice = Console.ReadLine();
-            switch (choice)
+            bool c = true;
+            while (c)
             {
-                case "1":
+                Console.WriteLine("Menu");
+                Console.WriteLine("1.Create User");
+                Console.WriteLine("2.Open Account");
+                Console.WriteLine("3.Exit");
+                Console.Write("Enter Choice: ");
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        using (var db = new BankModel1())
+                        {
 
-                    using (var db = new BankModel1())
-                    {
+                            User a = new User();
+                            Console.Write("Enter Name: ");
+                            a.Name = Console.ReadLine();
+                            Console.Write("Enter Address: ");
+                            a.Address = Console.ReadLine();
+                            Console.WriteLine("Enter your Phonenumber");
+                            string PhoneNumber = (Console.ReadLine());
+                            long convert;
+                            if (!long.TryParse(PhoneNumber, out convert))
+                            {
+                                throw new ArgumentException("invalid PhoneNumber");
+                            }
+                            Console.WriteLine("Enter your SSN");
+                            string SSN = (Console.ReadLine());
+                            int convert1;
+                            if (!int.TryParse(SSN, out convert1))
+                            {
+                                throw new ArgumentException("invalid SSN");
+                            }
+                            Console.WriteLine("Enter your EmailAddress");
+                            a.EmailAddress = Console.ReadLine();
+                            IEnumerable<User> b;
+                            b = Bank.GetAllUsers();
+                            foreach (var ab in b)
+                            {
+                                Console.WriteLine("{0},{1},{2},{3},{4},{5}",
+                                    ab.Id, ab.Name, ab.Address, ab.PhoneNumber, ab.SSN, ab.EmailAddress);
+                            }
+                            Console.ReadLine();
+                            db.Users.Add(a);
+                            db.SaveChanges();
+                            Console.WriteLine("User Created!");
 
-                        var a = new User();
-                        Console.Write("Enter Name: ");
-                        a.Name = Console.ReadLine();
-                        Console.Write("Enter Address: ");
-                        a.Address = Console.ReadLine();
-                        db.Users.Add(a);
-                        db.SaveChanges();
-                        Console.WriteLine("User Created!");
-                        Console.ReadLine();
-                    }
-                    break;
-                case "2":
-                    
+                        }
+                        break;
+                    case "2":
                         using (var db = new BankModel1())
                         {
 
@@ -126,23 +150,26 @@ namespace ATM
                                 b.Type = " saving";
 
                             }
-                            var c = Bank.CreateAccount(b.Type, 12345, b.UserId);
-
-
+                            var d = Bank.CreateAccount(b.Type, 12345, b.UserId);
+                            IEnumerable<Account> e;
+                            e = Bank.GetAllAccounts();
+                            foreach (var ab in e)
+                            {
+                                Console.WriteLine("{0},{1},{2},{3}", ab.Id, ab.Type, ab.Number, ab.UserId);
+                            }
+                            Console.ReadLine();
                             db.SaveChanges();
                             Console.WriteLine("Account Created!");
-                            Console.ReadLine();
                         }
-                    break;
-                case "3":
-                        return;
-
-
-                default:
-                    
+                        break;
+                    case "3":
+                        c = false;
+                        break;
+                    default:
                         throw new ArgumentOutOfRangeException("Invalid Choice");
-                    
+                }
             }
+            Console.WriteLine("Exited");
         }
     }
 }
