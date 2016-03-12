@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ATM;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AtmUi.Models
@@ -65,6 +66,17 @@ namespace AtmUi.Models
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        public string Name { get; set; }
+        [Required]
+        public string Address { get; set; }
+        [Required]
+        public long PhoneNumber { get; set; }
+        [Required]
+        public int SSN { get; set; }
+
+        [Key]
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -79,6 +91,8 @@ namespace AtmUi.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        
     }
 
     public class ResetPasswordViewModel

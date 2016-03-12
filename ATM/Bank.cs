@@ -19,7 +19,7 @@ namespace ATM
             var db = new BankModel1();
              return db.Users;
         }
-        public static User CreateUser(string name, string address, int phonenumber, int ssn,string emailaddress)
+        public static User CreateUser(string name, string address, long phonenumber, int ssn,string emailaddress)
         {
             using (var db = new BankModel1())
             {
@@ -38,7 +38,7 @@ namespace ATM
         }
         public static Account CreateAccount(string type, int number, int userid)
         {
-            var b = new Account
+            Account b = new Account
             {
                 Type = type,
                 Number = number,
@@ -51,10 +51,10 @@ namespace ATM
             }
             using (var db = new BankModel1())
             {
-                var card = db.Cards.Where(s => s.AccountId == b.Id).FirstOrDefault();
+                Card card = db.Cards.Where(s => s.AccountId == b.Id).FirstOrDefault();
                 if (card == null)
                 {
-                    var c = new Card
+                    Card c = new Card
                     {
                         Number = ++Card.LastNumber,
                         ExpiryDate = new DateTime(2016, 2, 9),

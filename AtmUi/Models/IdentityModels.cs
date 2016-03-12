@@ -29,5 +29,7 @@ namespace AtmUi.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<AtmUi.Models.RegisterViewModel> RegisterViewModels { get; set; }
     }
 }
