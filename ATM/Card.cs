@@ -15,6 +15,7 @@ namespace ATM
     {
         #region field
         public static int LastNumber = 12345;
+        public static int Cvv = 123;
         #endregion
         #region Properties
         [Key]

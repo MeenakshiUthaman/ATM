@@ -9,6 +9,7 @@ namespace AtmUi.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
            var users = Bank.GetAllUsers();
@@ -27,76 +28,131 @@ namespace AtmUi.Controllers
             Bank.CreateAccount(Account.Type, Account.Number, Account.UserId);
             return RedirectToAction("Index");
         }
+       
         [Authorize]
         public ActionResult Details(int id)
         {
-            using (var db = new BankModel1())
-            {
-                User user = db.Users.Where(s => s.Id ==id).FirstOrDefault();
+           var user = Bank.GetUserId(id);
                 return View(user);
-            }
         }
         [Authorize]
         public ActionResult Delete(int id)
         {
-            using (var db = new BankModel1())
-            {
-                User user = db.Users.Where(s => s.Id == id).FirstOrDefault();
-                return View(user);
-            }
+            var user = Bank.GetUserId(id);
+            return View(user);
         }
         [HttpPost]
         [Authorize]
         public ActionResult Delete(User user)
         {
-          using(var db = new BankModel1())
-            {
-                var foundUser = db.Users.Where(u => u.Id == user.Id).FirstOrDefault();
-                 db.Users.Remove(foundUser);
-                 db.SaveChanges();
-                return RedirectToAction("index");
-            } 
-        }
+            Bank.DeleteUser(user.Id);
+            return RedirectToAction("index");
+         }
         public ActionResult Edit(int id)
         {
-            using (var db = new BankModel1())
-            {
-                User user = db.Users.Where(s => s.Id == id).FirstOrDefault();
-                return View(user);
-            }
+            var user = Bank.GetUserId(id);
+            return View(user);
         }
         [HttpPost]
         [Authorize]
         public ActionResult Edit(User user)
         {
-            using (var db = new BankModel1())
-            {
-                User Updateuser = db.Users.Where(u => u.Id == user.Id).FirstOrDefault();
-                if (Updateuser != null)
-                {
-                    var originaluser = Updateuser;
-                    Updateuser.Name = user.Name;
-                    Updateuser.Address = user.Address;
-                    Updateuser.PhoneNumber = user.PhoneNumber;
-                    Updateuser.SSN = user.SSN;
-                    Updateuser.EmailAddress = user.EmailAddress;
-                    db.Entry(originaluser).CurrentValues.SetValues(Updateuser);
-                    db.SaveChanges();
-               }
-               
-            }
-            return RedirectToAction("Index");
+            Bank.UpdateUser(user);
+            return RedirectToAction("index");
+        }
+        [Authorize]
+        public ActionResult ViewCard()
+        {
+            var Cards = Bank.GetAllCards();
+            return View(Cards);
+        }
+        [Authorize]
+        public ActionResult CardDetails (int id)
+        {
+            var Card = Bank.GetCardId(id);
+            return View(Card);
+        }
+        [Authorize]
+        public ActionResult CardDelete (int id)
+        {
+            var Card = Bank.GetCardId(id);
+            return View(Card);
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult CardDelete(Card card)
+        {
+            Bank.DeleteCard(card.Id);
+            return RedirectToAction("viewCard");
+        }
+        [Authorize]
+        public ActionResult CardEdit (int id)
+        {
+            var card = Bank.GetCardId(id);
+            return View(card);
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult CardEdit (Card card)
+        {
+            Bank.UpdateCard(card);
+            return RedirectToAction("ViewCard");
+        }
+        public ActionResult CreateTransaction()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult CreateTransaction(Transaction Transaction)
+        {
+            Bank.CreateTransation(Transaction.CardId, Transaction.Vendor, Transaction.Date, Transaction.Amount);
+            return RedirectToAction("index");
+        }
+        public ActionResult ViewTransaction()
+        {
+            var Transaction = Bank.GetAllTransactions();
+            return View(Transaction);
+        }
+        public ActionResult TransactionDetails (int id)
+        {
+            var Transaction = Bank.GetTransactionId(id);
+            return View(Transaction);
+        }
+        public ActionResult TransactionDelete (int id)
+        {
+            var Transaction = Bank.GetTransactionId(id);
+            return View(Transaction);
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult TransactionDelete(Transaction Transaction)
+        {
+            Bank.DeleteTransaction(Transaction.Id);
+            return RedirectToAction("viewTransaction");
+        }
+        public ActionResult TransactionEdit(int id)
+        {
+            var Transaction = Bank.GetTransactionId(id);
+            return View(Transaction);
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult TransactionEdit(Transaction Transaction)
+        {
+            Bank.UpdateTransaction(Transaction);
+            return RedirectToAction("ViewTransaction");
         }
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Bank application description page.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Bank contact page.";
 
             return View();
         }

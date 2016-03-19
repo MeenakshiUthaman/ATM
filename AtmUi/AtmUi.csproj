@@ -286,6 +286,19 @@
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\Delete.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Account\ViewAccount.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\Delete.cshtml" />
+    <Content Include="Views\Home\ViewCard.cshtml" />
+    <Content Include="Views\Home\CardDetails.cshtml" />
+    <Content Include="Views\Home\CardDelete.cshtml" />
+    <Content Include="Views\Home\CardEdit.cshtml" />
+    <Content Include="Views\Home\CreateTransaction.cshtml" />
+    <Content Include="Views\Home\ViewTransaction.cshtml" />
+    <Content Include="Views\Home\TransactionDetails.cshtml" />
+    <Content Include="Views\Home\TransactionDelete.cshtml" />
+    <Content Include="Views\Home\TransactionEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

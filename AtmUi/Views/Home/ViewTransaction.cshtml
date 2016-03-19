@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ATM.Transaction>
+
+@{
+    ViewBag.Title = "ViewTransaction";
+}
+
+<h2>ViewTransaction</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Card.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vendor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Card.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vendor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "TransactionEdit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "TransactionDetails", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "TransactionDelete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

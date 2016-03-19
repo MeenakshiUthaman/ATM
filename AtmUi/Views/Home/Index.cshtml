@@ -1,14 +1,23 @@
 ﻿@model IEnumerable<ATM.User>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Customer Base";
 }
 
-<h2>Index</h2>
+<h2>Customer Base</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create Account", "Create") |
+    @Html.ActionLink("View Accounts", "ViewAccount", "Account")
+    </p>
+<p>
+    @Html.ActionLink("View Cards", "ViewCard")
+    </p>
+<p>
+    @Html.ActionLink("Create Transaction", "CreateTransaction") |
+    @Html.ActionLink("View Transactions", "ViewTransaction")
 </p>
+
 <table class="table">
     <tr>
         <th>

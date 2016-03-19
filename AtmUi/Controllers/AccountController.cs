@@ -40,7 +40,43 @@ namespace AtmUi.Controllers
                 _signInManager = value; 
             }
         }
-
+        [Authorize]
+        public ActionResult ViewAccount()
+        {
+            var Accounts = Bank.GetAllAccounts();
+            return View(Accounts);
+        }
+        [Authorize]
+        public ActionResult Details(int id)
+        {
+            var account = Bank.GetAccountId(id);
+            return View(account);
+        }
+        public ActionResult Edit(int id)
+        {
+           var account = Bank.GetAccountId(id);
+            return View(account);
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult Edit(Account Account)
+        {
+            Bank.UpdateAccount(Account);
+            return RedirectToAction("ViewAccount");
+        }
+        [Authorize]
+        public ActionResult Delete(int id)
+        {
+            var account = Bank.GetAccountId(id);
+            return View(account);
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult Delete(Account account)
+        {
+            Bank.DeleteAccount(account.Id);
+            return RedirectToAction("ViewAccount");
+        }
         public ApplicationUserManager UserManager
         {
             get
